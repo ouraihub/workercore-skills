@@ -1,0 +1,32 @@
+{
+  "name": "workercore-skills",
+  "displayName": "workercore Skills",
+  "description": "Claude Code skills for the @ouraihub/workercore admin-panel framework on Cloudflare Workers",
+  "version": "0.1.0",
+  "owner": {
+    "name": "ouraihub",
+    "url": "https://github.com/ouraihub"
+  },
+  "repository": "https://github.com/ouraihub/workercore-skills",
+  "license": "MIT",
+  "keywords": [
+    "skills",
+    "workercore",
+    "cloudflare-workers",
+    "admin-panel",
+    "tailwind",
+    "mustache"
+  ],
+  "categories": [
+    "Development",
+    "Framework"
+  ],
+  "plugins": [
+    {
+      "name": "workercore-skills",
+      "description": "Skill for generating correct workercore code — pages, handlers, routes, templates, and token-based UI",
+      "version": "0.1.0",
+      "source": "./"
+    }
+  ]
+}
