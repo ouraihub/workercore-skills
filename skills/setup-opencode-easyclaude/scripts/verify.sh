@@ -20,10 +20,17 @@ console.log('  npm:',p.npm,'| baseURL:',p.options.baseURL);
 console.log('  models:',Object.keys(p.models).join(','));
 " || { echo "  opencode.json 解析失败"; fail=1; }
 
-echo "== 2. oh-my-openagent.jsonc 合法性 + 模型前缀 =="
+echo "== 2. oh-my-openagent 映射合法性 + 模型前缀 =="
+# 文件名随 omo 版本变化：老版本 .jsonc，omo 4.16.x 生成 .json。自动探测二者。
 node -e "
 const os=require('os'),path=require('path'),fs=require('fs');
-let s=fs.readFileSync(path.join(os.homedir(),'.config','opencode','oh-my-openagent.jsonc'),'utf8');
+const dir=path.join(os.homedir(),'.config','opencode');
+const cand=['oh-my-openagent.json','oh-my-openagent.jsonc'].map(f=>path.join(dir,f)).filter(p=>fs.existsSync(p));
+if(!cand.length){console.log('  ✗ 未找到 oh-my-openagent.json[c]');process.exit(1);}
+const file=cand[0];
+console.log('  使用文件:',path.basename(file));
+let s=fs.readFileSync(file,'utf8');
+// .json 是严格 JSON；.jsonc 需去注释/尾逗号后再解析。统一走宽松清洗，两者都能过。
 s=s.replace(/\/\*[\s\S]*?\*\//g,'').split('\n').map(l=>l.replace(/^(\s*)\/\/.*$/,'')).join('\n').replace(/,(\s*[}\]])/g,'\$1');
 const j=JSON.parse(s);
 const models=new Set();
@@ -32,9 +39,9 @@ Object.values(j.categories||{}).forEach(a=>models.add(a.model));
 const bad=[...models].filter(m=>!m.startsWith('easyclaude/'));
 console.log('  agents:',Object.keys(j.agents||{}).length,'| categories:',Object.keys(j.categories||{}).length);
 console.log('  models:',[...models].join(', '));
-if(bad.length){console.log('  ✗ 非 easyclaude 前缀（坑二未修）:',bad.join(', '));process.exit(1);}
+if(bad.length){console.log('  ✗ 非 easyclaude 前缀（坑二未修，如 opencode/gpt-5-nano）:',bad.join(', '));process.exit(1);}
 console.log('  ✓ 全部 easyclaude/ 前缀');
-" || { echo "  oh-my-openagent.jsonc 校验失败"; fail=1; }
+" || { echo "  oh-my-openagent 映射校验失败"; fail=1; }
 
 echo "== 3. 旧名文件残留检查（坑三）=="
 for f in oh-my-opencode.json oh-my-opencode.jsonc; do

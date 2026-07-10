@@ -1,0 +1,34 @@
+{
+  "$schema": "https://raw.githubusercontent.com/code-yeongyu/oh-my-opencode/dev/assets/oh-my-opencode.schema.json",
+  "agents": {
+    "sisyphus": { "model": "easyclaude/claude-opus-4-8" },
+    "hephaestus": { "model": "easyclaude/gpt-5.5", "variant": "medium" },
+    "oracle": { "model": "easyclaude/gpt-5.5", "variant": "high" },
+    "prometheus": { "model": "easyclaude/claude-opus-4-8" },
+    "atlas": { "model": "easyclaude/gpt-5.4" },
+    "metis": { "model": "easyclaude/claude-opus-4-8" },
+    "momus": { "model": "easyclaude/gpt-5.4", "variant": "xhigh" },
+    "sisyphus-junior": { "model": "easyclaude/gpt-5.5", "variant": "medium" },
+    "librarian": { "model": "easyclaude/gpt-5.4", "variant": "low" },
+    "explore": { "model": "easyclaude/gpt-5.4", "variant": "low" },
+    "multimodal-looker": { "model": "easyclaude/gpt-5.4" }
+  },
+  "categories": {
+    "visual-engineering": { "model": "easyclaude/gpt-5.5", "variant": "high" },
+    "ultrabrain": { "model": "easyclaude/claude-opus-4-8" },
+    "deep": { "model": "easyclaude/gpt-5.5", "variant": "xhigh" },
+    "artistry": { "model": "easyclaude/claude-opus-4-8" },
+    "quick": { "model": "easyclaude/gpt-5.4", "variant": "low" },
+    "unspecified-low": { "model": "easyclaude/gpt-5.4", "variant": "medium" },
+    "unspecified-high": { "model": "easyclaude/claude-opus-4-8" },
+    "writing": { "model": "easyclaude/claude-opus-4-8" }
+  },
+  "background_task": {
+    "modelConcurrency": {
+      "easyclaude/claude-opus-4-8": 2,
+      "easyclaude/gpt-5.4": 2,
+      "easyclaude/gpt-5.5": 2
+    },
+    "providerConcurrency": { "easyclaude": 3 }
+  }
+}
