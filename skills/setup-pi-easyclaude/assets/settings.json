@@ -1,0 +1,23 @@
+{
+  "defaultProvider": "easyclaude-anthropic",
+  "defaultModel": "claude-opus-4-8",
+  "defaultThinkingLevel": "medium",
+  "enabledModels": [
+    "easyclaude-anthropic/claude-opus-4-8",
+    "easyclaude/gpt-5.5",
+    "easyclaude/gpt-5.4"
+  ],
+  "theme": "dark",
+  "compaction": {
+    "enabled": true,
+    "reserveTokens": 16384,
+    "keepRecentTokens": 20000
+  },
+  "retry": {
+    "enabled": true,
+    "maxRetries": 3,
+    "provider": {
+      "maxRetries": 0
+    }
+  }
+}
