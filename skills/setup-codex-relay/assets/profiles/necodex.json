@@ -1,0 +1,18 @@
+{
+  "name": "necodex",
+  "displayName": "NeCodeX API",
+  "baseUrl": "https://fast.sbbbbbbbbb.xyz/v1",
+  "key": { "mode": "env", "ref": "NECODEX_API_KEY" },
+  "apis": {
+    "responses": { "enabled": true }
+  },
+  "models": {
+    "main": { "id": "gpt-5.4", "name": "GPT-5.4", "reasoning": "high", "ctx": 400000, "out": 128000 },
+    "high": { "id": "gpt-5.5", "name": "GPT-5.5", "reasoning": "high", "ctx": 400000, "out": 128000 }
+  },
+  "quirks": {
+    "disableResponseStorage": true
+  },
+  "notes": "codex 0.133.0 起仅支持 wire_api=responses（chat 已移除）。该中转 /v1/responses 对 GPT 系 200；Claude 系（claude-opus-4-8 等）返回 500 not implemented —— codex 无 anthropic 协议、中转也未为 Claude 实现 responses，故 codex 下 Claude 不可达，本 profile 只含 GPT。base_url 必须带 /v1（codex 只在其后拼 /responses）。",
+  "verified": "2026-07-10 · codex-cli 0.133.0 端到端通过（gpt-5.4 + gpt-5.5 /v1/responses）"
+}

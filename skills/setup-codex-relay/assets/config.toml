@@ -1,0 +1,18 @@
+# codex-relay 生成模板 —— 占位符由执行 skill 的 agent 按 profile 替换后写入 ~/.codex/config.toml。
+# 已有 config.toml 时：只合并 model / model_provider / [model_providers.__PROFILE_NAME__] 三处，
+# 别覆盖用户已有的 [projects.*] / [tui.*] / approval / sandbox 等设置。
+
+model = "__MAIN_ID__"
+model_provider = "__PROFILE_NAME__"
+model_reasoning_effort = "__MAIN_REASONING__"
+
+# 中转不实现 OpenAI 的服务端会话存储，必须关掉，否则每轮请求会被拒。
+disable_response_storage = true
+
+[model_providers.__PROFILE_NAME__]
+name = "__PROFILE_DISPLAY__"
+base_url = "__PROFILE_BASEURL_V1__"
+# 从环境变量读 key，明文不落盘（推荐）。inline 模式改用 experimental_bearer_token（见 SKILL.md 第 3 步）。
+env_key = "__PROFILE_KEY_REF__"
+# codex 0.133.0 起唯一支持值。中转必须暴露 /v1/responses；chat-only 中转不可用。
+wire_api = "responses"
