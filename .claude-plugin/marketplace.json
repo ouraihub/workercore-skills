@@ -1,7 +1,7 @@
 {
   "name": "workercore-skills",
   "displayName": "workercore Skills",
-  "description": "Claude Code skills for the @ouraihub/workercore admin-panel framework on Cloudflare Workers",
+  "description": "Claude Code skills: build @ouraihub/workercore admin panels, and configure coding agents (Claude Code, Codex, OpenCode, Pi) to run through OpenAI/Anthropic-compatible relays",
   "version": "0.1.0",
   "owner": {
     "name": "ouraihub",
@@ -15,7 +15,13 @@
     "cloudflare-workers",
     "admin-panel",
     "tailwind",
-    "mustache"
+    "mustache",
+    "claude-code",
+    "codex",
+    "opencode",
+    "pi",
+    "relay",
+    "proxy"
   ],
   "categories": [
     "Development",
@@ -24,7 +30,7 @@
   "plugins": [
     {
       "name": "workercore-skills",
-      "description": "Skill for generating correct workercore code — pages, handlers, routes, templates, and token-based UI",
+      "description": "workercore framework skill + setup-*-relay skills for configuring Claude Code / Codex / OpenCode / Pi through OpenAI/Anthropic-compatible relays",
       "version": "0.1.0",
       "source": "./"
     }

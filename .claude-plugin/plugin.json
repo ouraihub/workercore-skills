@@ -1,12 +1,12 @@
 {
   "name": "workercore-skills",
   "version": "0.1.0",
-  "description": "Claude Code skill for building admin panels with @ouraihub/workercore, a zero-config admin-panel framework for Cloudflare Workers",
+  "description": "Claude Code skills: build @ouraihub/workercore admin panels, and configure coding agents (Claude Code, Codex, OpenCode, Pi) to run through OpenAI/Anthropic-compatible relays",
   "author": {
     "name": "ouraihub",
     "url": "https://github.com/ouraihub"
   },
   "repository": "https://github.com/ouraihub/workercore-skills",
-  "keywords": ["skills", "workercore", "cloudflare-workers", "admin-panel", "tailwind", "mustache"],
+  "keywords": ["skills", "workercore", "cloudflare-workers", "admin-panel", "tailwind", "mustache", "claude-code", "codex", "opencode", "pi", "relay", "proxy"],
   "skills": "./skills"
 }
