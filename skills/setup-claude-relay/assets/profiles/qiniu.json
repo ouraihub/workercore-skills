@@ -1,0 +1,14 @@
+{
+  "name": "qiniu",
+  "displayName": "Qiniu (七牛云)",
+  "baseUrl": "https://api.qnaigc.com",
+  "key": { "mode": "env", "ref": "QINIU_API_KEY" },
+  "models": {
+    "opus": { "id": "claude-opus-4-8", "name": "Claude Opus 4.8" },
+    "sonnet": { "id": "claude-4.6-sonnet", "name": "Claude 4.6 Sonnet" },
+    "haiku": { "id": "claude-haiku-4-5", "name": "Claude Haiku 4.5" }
+  },
+  "default": "opus",
+  "notes": "Claude Code 走 Anthropic /v1/messages（七牛有此端点，实测 200）。baseUrl 不带 /v1（Claude Code 自拼 /v1/messages）。鉴权 Bearer 与 x-api-key 均可。国外域名可换 https://api.modelink.ai。七牛 claude 家族 sonnet/opus/haiku 4.x 均可，claude-3-5-haiku 无通道。",
+  "verified": "2026-07-10 · Claude Code 2.1.150 端到端通过（claude-4.6-sonnet CLAUDE_QINIU_OK）"
+}

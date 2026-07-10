@@ -1,0 +1,14 @@
+{
+  "name": "easyclaude",
+  "displayName": "EasyClaude",
+  "baseUrl": "https://api.easyclaude.com",
+  "key": { "mode": "env", "ref": "EASYCLAUDE_API_KEY" },
+  "models": {
+    "opus": { "id": "claude-opus-4-8", "name": "Claude Opus 4.8" },
+    "sonnet": { "id": "claude-sonnet-4-6", "name": "Claude Sonnet 4.6" },
+    "haiku": { "id": "claude-haiku-4-5", "name": "Claude Haiku 4.5" }
+  },
+  "default": "opus",
+  "notes": "Claude Code 走 Anthropic /v1/messages。baseUrl 不带 /v1。与 setup-pi-relay / setup-opencode-relay 的 easyclaude profile 是同一中转的不同 agent 视角。",
+  "verified": "2026-07-10 · 端点形态同 pi/opencode 已验证；Claude Code 侧待用真 key 端到端确认"
+}
