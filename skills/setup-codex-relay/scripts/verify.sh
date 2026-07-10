@@ -27,6 +27,7 @@ sh("HIGH",p.models.high?p.models.high.id:"");
 sh("KEYMODE",p.key.mode);
 sh("KEYREF",p.key.ref||"");
 sh("KEYVAL",p.key.value||"");
+sh("CODEXAUTH",p.codexAuth||"env_key");   // env_key | openai_auth（七牛 bypass 用后者）
 ' "$PROFILE_FILE")"
 
 if [ "$KEYMODE" = "env" ]; then KEY="${!KEYREF:-}"; else KEY="$KEYVAL"; fi
@@ -54,6 +55,14 @@ echo "== 3. 端到端（隔离 CODEX_HOME，不碰真实 ~/.codex）=="
 if [ -n "$KEY" ] && command -v codex >/dev/null 2>&1; then
   # CODEX_HOME 放 $HOME 下，避免 codex 拒绝在 /tmp 建 helper 的告警
   CH="$(mktemp -d "$HOME/.codex-verify-XXXXXX")"
+  if [ "$CODEXAUTH" = "openai_auth" ]; then
+    # 七牛 bypass 端点：requires_openai_auth + auth.json（官方 qiniu-coding-helper 写法）
+    AUTHLINE="requires_openai_auth = true"
+    printf '{"auth_mode":"apikey","OPENAI_API_KEY":"%s"}\n' "$KEY" > "$CH/auth.json"
+    chmod 600 "$CH/auth.json"
+  else
+    AUTHLINE="env_key = \"$KEYREF\""
+  fi
   cat > "$CH/config.toml" <<EOF
 model = "$MAIN"
 model_provider = "$PNAME"
@@ -62,16 +71,17 @@ disable_response_storage = true
 [model_providers.$PNAME]
 name = "$PDISP"
 base_url = "$BASE"
-env_key = "$KEYREF"
+$AUTHLINE
 wire_api = "responses"
 EOF
   check() { # $1=label $2=model
     local label="$1" model="$2" out
+    # 关键：codex exec 会阻塞读 stdin，必须 < /dev/null 关掉，否则 timeout 卡死
     out=$(env "$KEYREF=$KEY" CODEX_HOME="$CH" timeout 120 codex exec --skip-git-repo-check \
-      ${model:+-c model="\"$model\""} "reply with exactly: CODEX_${label}_OK" 2>&1 | grep -oE "CODEX_${label}_OK" | head -1)
+      ${model:+-c model="\"$model\""} "reply with exactly: CODEX_${label}_OK" < /dev/null 2>&1 | grep -oE "CODEX_${label}_OK" | head -1)
     if [ -n "$out" ]; then echo "  $label($model) -> $out"; else echo "  $label($model) -> 无 OK 标记 ✗"; fail=1; fi
   }
-  # env_key 模式下 codex 从环境读 key；这里显式传 $KEYREF=$KEY
+  # env_key 模式下 codex 从环境读 key；openai_auth 模式从 auth.json 读，$KEYREF=$KEY 无害
   check "MAIN" "$MAIN"
   [ -n "$HIGH" ] && [ "$HIGH" != "$MAIN" ] && check "HIGH" "$HIGH"
   rm -rf "$CH"

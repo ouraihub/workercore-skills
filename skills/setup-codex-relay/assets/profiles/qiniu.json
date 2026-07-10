@@ -1,0 +1,19 @@
+{
+  "name": "qnaigc",
+  "displayName": "Qiniu (七牛云)",
+  "baseUrl": "https://api.qnaigc.com/bypass/openai/v1",
+  "key": { "mode": "env", "ref": "QINIU_API_KEY" },
+  "codexAuth": "openai_auth",
+  "apis": {
+    "responses": { "enabled": true }
+  },
+  "models": {
+    "main": { "id": "gpt-5.4", "name": "GPT-5.4", "reasoning": "medium", "ctx": 400000, "out": 128000 },
+    "high": { "id": "gpt-5.5", "name": "GPT-5.5", "reasoning": "high", "ctx": 400000, "out": 128000 }
+  },
+  "quirks": {
+    "disableResponseStorage": true
+  },
+  "notes": "⭐ codex 走七牛的专用 bypass 端点 /bypass/openai/v1（标准 /v1/responses 返回 404，只有 bypass 路径有 Responses API）。config 用 requires_openai_auth=true（不是 env_key），key 写进 ~/.codex/auth.json 的 {auth_mode:apikey, OPENAI_API_KEY:<key>}——这是官方 qiniu-coding-helper 的写法。海外域名换 https://api.modelink.ai/bypass/openai/v1（同样已 200）。gpt-5.5/5.4/5.4-mini/5.3-codex 在 bypass responses 均 200。这与 pi/opencode/claude 三个 skill 的 qiniu profile 是同一中转的不同 agent 视角（那三个走 /v1/chat 与 /v1/messages，codex 独走 bypass responses）。",
+  "verified": "2026-07-10 · codex-cli 0.133.0 端到端通过（gpt-5.4 CODEX_RELAY_OK，bypass responses + auth.json）"
+}
