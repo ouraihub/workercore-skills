@@ -1,7 +1,7 @@
 ---
 name: setup-pi-easyclaude
 description: 在一台新机器上安装并配置 Pi coding agent，使其通过 EasyClaude 中转（api.easyclaude.com）使用 Claude Opus 4.8 与 GPT-5.4/5.5。当用户要求"配置 pi""装 pi""pi 走中转""复现 pi 环境"或 pi 报 403/无模型可用时使用。包含已验证的双 provider 分流配置和 OpenAI-SDK User-Agent 被 WAF 拦截（403）的修复方法。
-compatibility: 需要 Node.js 与 npm；Windows 用 Git Bash（Unix 语法）。已在 Windows 10 + pi 0.80.3 验证。
+compatibility: 需要 Node.js；推荐 bun 安装（见第 1 步）。Windows 用 Git Bash（Unix 语法）。已在 Windows 10 + pi 0.80.3、及 Linux/WSL + pi 0.80.6 上验证。
 ---
 
 # 配置 Pi 走 EasyClaude 中转
@@ -14,9 +14,26 @@ compatibility: 需要 Node.js 与 npm；Windows 用 Git Bash（Unix 语法）。
 
 ## 1. 安装 pi
 
+**先查是否已装**，避免复用到慢盘/旧版本：
+```bash
+command -v pi && pi --version   # 已装则看位置与版本；在 /mnt/* 挂载盘上建议按下方重装到原生盘
+```
+
+**推荐用 bun 装**（原生盘、无权限坑、自动跳过 postinstall）：
+```bash
+bun --version || npm install -g bun     # 没 bun 先装
+bun install -g @earendil-works/pi-coding-agent
+hash -r; command -v pi; pi --version    # 应指向 ~/.bun/bin/pi，已验证 0.80.6
+```
+> bun 默认会 "Blocked N postinstalls"，等价于 npm 的 `--ignore-scripts`，符合本 skill 需求。
+>
+> ⚠️ 坑〇（Linux/WSL）：别用 `npm install -g`。多数 Linux 发行版 npm 全局前缀是 `/usr`（root 所有），`npm install -g` 直接报 `EACCES/permission denied`。用上面的 `bun install -g` 绕过，无需 sudo。
+>
+> ⚠️ 安装位置（WSL）：别装/复用 `/mnt/c`、`/mnt/d` 等 Windows 挂载盘上的 pi —— 经 9p 协议挂载，文件 I/O 明显慢，pi 启动和跑 skill 都拖。装到 WSL 原生盘（`bun install -g` 默认落在 `~/.bun/bin`）。若机器上已有挂载盘的旧 pi，确保 PATH 里 `~/.bun/bin` 优先级更高，或删掉旧的。
+
+若坚持用 npm（非 root-owned 前缀，如 Windows 或自定义 prefix）：
 ```bash
 npm install -g --ignore-scripts @earendil-works/pi-coding-agent
-pi --version
 ```
 
 ## 2. 查中转真实支持哪些模型（别凭记忆）
@@ -88,6 +105,8 @@ pi install npm:pi-web-access   # 零配置，默认用 Exa，无需 key；注册
 
 | 现象 | 解决 |
 |---|---|
+| `npm install -g` 报 EACCES/权限错误 (Linux/WSL) | 坑〇：全局前缀是 root 的 `/usr`，改用 `bun install -g @earendil-works/pi-coding-agent`（见第 1 步） |
+| pi 启动/跑 skill 明显慢 (WSL) | pi 装在 `/mnt/*` 挂载盘（9p I/O 慢）。重装到原生盘 `~/.bun/bin`，并让其在 PATH 中优先 |
 | `403 Your request was blocked` | 第 4 步：models.json 加 `headers.user-agent` |
 | `No models available` | settings.json 没设 defaultProvider/defaultModel；或 models.json 的 apiKey 缺失 |
 | Claude provider 401/403 | anthropic 端点 baseUrl 误带了 `/v1`，改成 `https://api.easyclaude.com` |
