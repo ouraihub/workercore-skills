@@ -83,10 +83,10 @@ echo "== 4. 中转连通（应 200）=="
 if [ -n "$KEY" ]; then
   code=$(curl -s -o /dev/null -w "%{http_code}" "$OAI_URL" \
     -H "Authorization: Bearer $KEY" -H "Content-Type: application/json" \
-    -d "{\"model\":\"$PROBE_MODEL\",\"messages\":[{\"role\":\"user\",\"content\":\"hi\"}],\"max_tokens\":5}")
+    -d "{\"model\":\"$PROBE_MODEL\",\"messages\":[{\"role\":\"user\",\"content\":\"hi\"}],\"max_tokens\":16}")
   echo "  $PROBE_MODEL @ $OAI_URL -> HTTP $code"; [ "$code" = "200" ] || fail=1
 else
-  echo "  跳过（key 未解析：env 模式请 export $KEYREF）"
+  echo "  ✗ key 未解析，连通测试跳过（env 模式请 export $KEYREF；inline 模式检查 profile.key.value）"; fail=1
 fi
 
 echo "== 5. opencode 识别 provider/模型 =="

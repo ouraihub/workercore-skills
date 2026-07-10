@@ -1,0 +1,21 @@
+{
+  "name": "qiniu",
+  "displayName": "Qiniu (七牛云)",
+  "baseUrl": "https://api.qnaigc.com",
+  "key": { "mode": "env", "ref": "QINIU_API_KEY" },
+  "apis": {
+    "openai": { "enabled": true, "pathV1": true },
+    "anthropic": { "enabled": true, "pathV1": false }
+  },
+  "models": {
+    "opus": { "id": "claude-4.6-sonnet", "name": "Claude 4.6 Sonnet", "via": "anthropic", "ctx": 200000, "out": 64000 },
+    "gptHigh": { "id": "gpt-5.4", "name": "GPT-5.4", "via": "openai", "ctx": 400000, "out": 128000 },
+    "gptCheap": { "id": "gpt-5.4-mini", "name": "GPT-5.4 Mini", "via": "openai", "ctx": 400000, "out": 128000 }
+  },
+  "quirks": {
+    "userAgentWafBlock": false,
+    "userAgentValue": "pi/0.80.3"
+  },
+  "notes": "海外模型不在 /v1/models 列表里但可调用；gpt 系要求 max_tokens>=16；anthropic 服务端路径是 /v1/messages，但 pi baseUrl 填裸域名由客户端拼接，故 anthropic.pathV1=false（openai 侧 pathV1=true）",
+  "verified": "2026-07-10 · pi 0.80.6 端到端通过（PI_GPT_OK gpt-5.4 + PI_CLAUDE_OK claude-4.6-sonnet，anthropic 裸域名客户端拼 /v1/messages 生效）"
+}

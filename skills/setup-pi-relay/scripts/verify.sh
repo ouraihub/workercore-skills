@@ -48,12 +48,12 @@ if [ -n "$KEY" ]; then
     if [ "$ua" = "plain" ]; then H=(); else H=(-H "user-agent: $ua"); fi
     code=$(curl -s -o /dev/null -w "%{http_code}" "$OAI_URL" \
       -H "Authorization: Bearer $KEY" -H "Content-Type: application/json" "${H[@]}" \
-      -d "{\"model\":\"$GPTHIGH\",\"messages\":[{\"role\":\"user\",\"content\":\"hi\"}],\"max_tokens\":5}")
+      -d "{\"model\":\"$GPTHIGH\",\"messages\":[{\"role\":\"user\",\"content\":\"hi\"}],\"max_tokens\":16}")
     echo "  UA=[$ua] -> HTTP $code"
     if [ "$ua" = "OpenAI/JS 6.26.0" ] && [ "$code" = "200" ]; then echo "    (注：该中转当前未拦此 UA，headers 覆盖仍无害)"; fi
   done
 else
-  echo "  跳过（key 未解析：env 模式请 export $KEYREF）"
+  echo "  ✗ key 未解析，连通测试跳过（env 模式请 export $KEYREF；inline 模式检查 profile.key.value）"; fail=1
 fi
 
 echo "== 3. pi 识别模型 =="

@@ -2,3 +2,10 @@ node_modules/
 .DS_Store
 *.log
 .claude/
+
+# secrets — never commit
+key.txt
+*.key
+*.secret
+.env
+.env.*
