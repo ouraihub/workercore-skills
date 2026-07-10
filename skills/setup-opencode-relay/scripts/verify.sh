@@ -22,6 +22,7 @@ sh("BASE",p.baseUrl.replace(/\/+$/,""));
 sh("OPENAI_V1", (p.apis&&p.apis.openai&&p.apis.openai.pathV1)?"1":"");
 sh("OPUS", p.models.opus?p.models.opus.id:"");
 sh("GPTHIGH", p.models.gptHigh?p.models.gptHigh.id:"");
+sh("GPT56", p.models.gpt56?p.models.gpt56.id:"");
 sh("KEYMODE", p.key.mode);
 sh("KEYREF", p.key.ref||"");
 sh("KEYVAL", p.key.value||"");
@@ -81,10 +82,13 @@ done
 
 echo "== 4. 中转连通（应 200）=="
 if [ -n "$KEY" ]; then
-  code=$(curl -s -o /dev/null -w "%{http_code}" "$OAI_URL" \
-    -H "Authorization: Bearer $KEY" -H "Content-Type: application/json" \
-    -d "{\"model\":\"$PROBE_MODEL\",\"messages\":[{\"role\":\"user\",\"content\":\"hi\"}],\"max_tokens\":16}")
-  echo "  $PROBE_MODEL @ $OAI_URL -> HTTP $code"; [ "$code" = "200" ] || fail=1
+  for m in "$PROBE_MODEL" "$GPT56"; do
+    [ -z "$m" ] && continue
+    code=$(curl -s -o /dev/null -w "%{http_code}" "$OAI_URL" \
+      -H "Authorization: Bearer $KEY" -H "Content-Type: application/json" \
+      -d "{\"model\":\"$m\",\"messages\":[{\"role\":\"user\",\"content\":\"hi\"}],\"max_tokens\":16}")
+    echo "  $m @ $OAI_URL -> HTTP $code"; [ "$code" = "200" ] || fail=1
+  done
 else
   echo "  ✗ key 未解析，连通测试跳过（env 模式请 export $KEYREF；inline 模式检查 profile.key.value）"; fail=1
 fi

@@ -24,6 +24,14 @@
           "input": ["text", "image"],
           "contextWindow": 1050000,
           "maxTokens": 128000
+        },
+        {
+          "id": "__GPT56_ID__",
+          "name": "__GPT56_NAME__",
+          "reasoning": true,
+          "input": ["text", "image"],
+          "contextWindow": 400000,
+          "maxTokens": 128000
         }
       ]
     },
@@ -38,7 +46,7 @@
         {
           "id": "__OPUS_ID__",
           "name": "__OPUS_NAME__",
-          "reasoning": true,
+          "reasoning": __OPUS_REASONING__,
           "input": ["text", "image"],
           "contextWindow": 200000,
           "maxTokens": 64000

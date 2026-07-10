@@ -24,6 +24,7 @@ sh("BASE",p.baseUrl.replace(/\/+$/,""));   // 已含 /v1（codex 只在其后拼
 sh("MAIN",p.models.main?p.models.main.id:"");
 sh("MAINREASON",p.models.main&&p.models.main.reasoning?p.models.main.reasoning:"high");
 sh("HIGH",p.models.high?p.models.high.id:"");
+sh("ULTRA",p.models.ultra?p.models.ultra.id:"");
 sh("KEYMODE",p.key.mode);
 sh("KEYREF",p.key.ref||"");
 sh("KEYVAL",p.key.value||"");
@@ -38,7 +39,7 @@ if command -v codex >/dev/null 2>&1; then echo "  $(codex --version)"; else echo
 
 echo "== 2. 中转 /v1/responses 连通（应 200；chat-only 中转会 404，codex 不可用）=="
 if [ -n "$KEY" ]; then
-  for m in "$MAIN" "$HIGH"; do
+  for m in "$MAIN" "$HIGH" "$ULTRA"; do
     [ -z "$m" ] && continue
     code=$(curl -s -o /tmp/codex-verify-body -w "%{http_code}" "$RESP_URL" \
       -H "Authorization: Bearer $KEY" -H "Content-Type: application/json" \
@@ -84,6 +85,7 @@ EOF
   # env_key 模式下 codex 从环境读 key；openai_auth 模式从 auth.json 读，$KEYREF=$KEY 无害
   check "MAIN" "$MAIN"
   [ -n "$HIGH" ] && [ "$HIGH" != "$MAIN" ] && check "HIGH" "$HIGH"
+  [ -n "$ULTRA" ] && [ "$ULTRA" != "$MAIN" ] && [ "$ULTRA" != "$HIGH" ] && check "ULTRA" "$ULTRA"
   rm -rf "$CH"
 else
   echo "  跳过（缺 key 或 codex 未装）"

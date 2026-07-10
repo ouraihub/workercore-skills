@@ -23,6 +23,7 @@ sh("ANTHRO_ON",(p.apis&&p.apis.anthropic&&p.apis.anthropic.enabled)?"1":"");
 sh("OPUS",p.models.opus?p.models.opus.id:"");
 sh("OPUS_VIA",p.models.opus?p.models.opus.via:"");
 sh("GPTHIGH",p.models.gptHigh?p.models.gptHigh.id:"");
+sh("GPT56",p.models.gpt56?p.models.gpt56.id:"");
 sh("KEYMODE",p.key.mode);
 sh("KEYREF",p.key.ref||"");
 sh("KEYVAL",p.key.value||"");
@@ -62,12 +63,14 @@ pi --list-models 2>/dev/null | grep -iE "$PNAME|$OPUS|$GPTHIGH" || { echo "  未
 echo "== 4. 端到端（按 profile 应测的 provider）=="
 check() { # $1=label $2..=args
   local label="$1"; shift
-  local out; out=$(timeout 90 pi -p --no-session "$@" 2>&1 | tail -1)
+  # < /dev/null 关闭 stdin，否则 pi -p 在非交互环境会阻塞到超时
+  local out; out=$(timeout 90 pi -p --no-session "$@" < /dev/null 2>&1 | tail -1)
   echo "  $label -> $out"
   case "$out" in *OK*) ;; *) fail=1;; esac
 }
 check "default" "reply with exactly: PI_DEFAULT_OK"
 check "gptHigh($GPTHIGH)" --provider "$PNAME" --model "$GPTHIGH" "reply with exactly: PI_GPT_OK"
+[ -n "$GPT56" ] && check "gpt56($GPT56)" --provider "$PNAME" --model "$GPT56" "reply with exactly: PI_GPT_OK"
 check "opus($OPUS)"       --provider "$OPUS_PROVIDER" --model "$OPUS" "reply with exactly: PI_CLAUDE_OK"
 
 echo "== 结果 =="

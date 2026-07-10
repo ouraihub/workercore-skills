@@ -23,6 +23,11 @@
           "name": "__GPTHIGH_NAME__",
           "limit": { "context": 400000, "output": 128000 },
           "variants": { "high": {}, "low": {}, "medium": {}, "xhigh": {} }
+        },
+        "__GPT56_ID__": {
+          "name": "__GPT56_NAME__",
+          "limit": { "context": 400000, "output": 128000 },
+          "variants": { "high": {}, "low": {}, "medium": {}, "xhigh": {} }
         }
       }
     }

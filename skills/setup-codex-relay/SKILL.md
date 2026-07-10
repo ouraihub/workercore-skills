@@ -28,7 +28,8 @@ profile 字段（以 `assets/profiles/necodex.json` 为准）：
   "apis": { "responses": { "enabled": true } },   // codex 唯一能用的协议
   "models": {
     "main": { "id": "gpt-5.4", "reasoning": "high", ... },  // 默认模型
-    "high": { "id": "gpt-5.5", "reasoning": "high", ... }   // 可选更强档
+    "high": { "id": "gpt-5.5", "reasoning": "high", ... },  // 可选更强档
+    "ultra": { "id": "openai/gpt-5.6-sol", "reasoning": "high", ... }  // 可选，5.6 主打编码；七牛 id 须带 openai/ 前缀
   },
   "quirks": { "disableResponseStorage": true }
 }
@@ -119,7 +120,7 @@ PROFILE=necodex bash scripts/verify.sh
 export QINIU_API_KEY=<KEY>
 PROFILE=qiniu bash scripts/verify.sh
 ```
-它校验 codex 已装、responses 端点连通、并用 `codex exec` 实测 main/high 两档返回 `CODEX_*_OK`。
+它校验 codex 已装、responses 端点连通、并用 `codex exec` 实测 main/high/ultra 各档返回 `CODEX_*_OK`。
 
 手动等价验证（会用你真实的 config.toml）：
 ```bash
@@ -132,7 +133,7 @@ codex exec --skip-git-repo-check -c model='"<high.id>"' "reply with exactly: COD
 
 给定 key + baseUrl + 候选模型，实测产出 `assets/profiles/<name>.json`：
 1. **找到 responses 端点**（第 2 步）：先试标准 `<baseUrl>/responses`。若 `404`，再试 bypass 路径（如 `/bypass/openai/v1/responses`）。标准和 bypass 都 `404` 才是这个中转 codex 用不了、**到此为止**。
-2. **查真实模型 id**：把 main/high 映射到 responses 返回 `200` 的 id。Claude 系多半 `500 not implemented`，别放进去。
+2. **查真实模型 id**：把 main/high/ultra 映射到 responses 返回 `200` 的 id。Claude 系多半 `500 not implemented`，别放进去。
 3. **base_url 写到 responses 前一段**：codex 只在 base_url 后拼 `/responses`。标准端点写到 `/v1`；bypass 端点写到 `/bypass/openai/v1`。
 4. **鉴权模式（codexAuth）**：普通中转用 `env_key`（默认）。若中转要求 OpenAI 式登录鉴权（如七牛 bypass），用 `openai_auth` → config 写 `requires_openai_auth=true` + `~/.codex/auth.json`。curl 用 Bearer 能过、但 codex 报鉴权错时，多半要切 `openai_auth`。
 5. **key 存法**：env 模式 `{"mode":"env","ref":"<RELAY>_API_KEY"}`；用户坚持明文再 inline。
