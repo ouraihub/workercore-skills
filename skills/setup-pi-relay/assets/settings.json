@@ -1,11 +1,11 @@
 {
-  "defaultProvider": "easyclaude-anthropic",
-  "defaultModel": "claude-opus-4-8",
+  "defaultProvider": "__PROFILE_NAME__-anthropic",
+  "defaultModel": "__OPUS_ID__",
   "defaultThinkingLevel": "medium",
   "enabledModels": [
-    "easyclaude-anthropic/claude-opus-4-8",
-    "easyclaude/gpt-5.5",
-    "easyclaude/gpt-5.4"
+    "__PROFILE_NAME__-anthropic/__OPUS_ID__",
+    "__PROFILE_NAME__/__GPTHIGH_ID__",
+    "__PROFILE_NAME__/__GPTCHEAP_ID__"
   ],
   "theme": "dark",
   "compaction": {

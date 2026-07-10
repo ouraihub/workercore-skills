@@ -1,0 +1,34 @@
+{
+  "$schema": "https://raw.githubusercontent.com/code-yeongyu/oh-my-opencode/dev/assets/oh-my-opencode.schema.json",
+  "agents": {
+    "sisyphus": { "model": "__PROFILE_NAME__/__OPUS_ID__" },
+    "hephaestus": { "model": "__PROFILE_NAME__/__GPTHIGH_ID__", "variant": "medium" },
+    "oracle": { "model": "__PROFILE_NAME__/__GPTHIGH_ID__", "variant": "high" },
+    "prometheus": { "model": "__PROFILE_NAME__/__OPUS_ID__" },
+    "atlas": { "model": "__PROFILE_NAME__/__GPTCHEAP_ID__" },
+    "metis": { "model": "__PROFILE_NAME__/__OPUS_ID__" },
+    "momus": { "model": "__PROFILE_NAME__/__GPTCHEAP_ID__", "variant": "xhigh" },
+    "sisyphus-junior": { "model": "__PROFILE_NAME__/__GPTHIGH_ID__", "variant": "medium" },
+    "librarian": { "model": "__PROFILE_NAME__/__GPTCHEAP_ID__", "variant": "low" },
+    "explore": { "model": "__PROFILE_NAME__/__GPTCHEAP_ID__", "variant": "low" },
+    "multimodal-looker": { "model": "__PROFILE_NAME__/__GPTCHEAP_ID__" }
+  },
+  "categories": {
+    "visual-engineering": { "model": "__PROFILE_NAME__/__GPTHIGH_ID__", "variant": "high" },
+    "ultrabrain": { "model": "__PROFILE_NAME__/__OPUS_ID__" },
+    "deep": { "model": "__PROFILE_NAME__/__GPTHIGH_ID__", "variant": "xhigh" },
+    "artistry": { "model": "__PROFILE_NAME__/__OPUS_ID__" },
+    "quick": { "model": "__PROFILE_NAME__/__GPTCHEAP_ID__", "variant": "low" },
+    "unspecified-low": { "model": "__PROFILE_NAME__/__GPTCHEAP_ID__", "variant": "medium" },
+    "unspecified-high": { "model": "__PROFILE_NAME__/__OPUS_ID__" },
+    "writing": { "model": "__PROFILE_NAME__/__OPUS_ID__" }
+  },
+  "background_task": {
+    "modelConcurrency": {
+      "__PROFILE_NAME__/__OPUS_ID__": 2,
+      "__PROFILE_NAME__/__GPTCHEAP_ID__": 2,
+      "__PROFILE_NAME__/__GPTHIGH_ID__": 2
+    },
+    "providerConcurrency": { "__PROFILE_NAME__": 3 }
+  }
+}

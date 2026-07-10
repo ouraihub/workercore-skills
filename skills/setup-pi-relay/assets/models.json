@@ -1,25 +1,25 @@
 {
   "providers": {
-    "easyclaude": {
-      "baseUrl": "https://api.easyclaude.com/v1",
+    "__PROFILE_NAME__": {
+      "baseUrl": "__PROFILE_BASEURL_V1__",
       "api": "openai-completions",
-      "apiKey": "<KEY>",
+      "apiKey": "$__PROFILE_KEY_REF__",
       "authHeader": true,
       "headers": {
-        "user-agent": "pi/0.80.3"
+        "user-agent": "__UA_VALUE__"
       },
       "models": [
         {
-          "id": "gpt-5.5",
-          "name": "GPT-5.5",
+          "id": "__GPTHIGH_ID__",
+          "name": "__GPTHIGH_NAME__",
           "reasoning": true,
           "input": ["text", "image"],
           "contextWindow": 400000,
           "maxTokens": 128000
         },
         {
-          "id": "gpt-5.4",
-          "name": "GPT-5.4",
+          "id": "__GPTCHEAP_ID__",
+          "name": "__GPTCHEAP_NAME__",
           "reasoning": true,
           "input": ["text", "image"],
           "contextWindow": 1050000,
@@ -27,17 +27,17 @@
         }
       ]
     },
-    "easyclaude-anthropic": {
-      "baseUrl": "https://api.easyclaude.com",
+    "__PROFILE_NAME__-anthropic": {
+      "baseUrl": "__PROFILE_BASEURL_ANTHROPIC__",
       "api": "anthropic-messages",
-      "apiKey": "<KEY>",
+      "apiKey": "$__PROFILE_KEY_REF__",
       "headers": {
-        "user-agent": "pi/0.80.3"
+        "user-agent": "__UA_VALUE__"
       },
       "models": [
         {
-          "id": "claude-opus-4-8",
-          "name": "Claude Opus 4.8",
+          "id": "__OPUS_ID__",
+          "name": "__OPUS_NAME__",
           "reasoning": true,
           "input": ["text", "image"],
           "contextWindow": 200000,

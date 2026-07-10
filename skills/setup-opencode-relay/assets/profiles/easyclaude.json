@@ -1,0 +1,20 @@
+{
+  "name": "easyclaude",
+  "displayName": "EasyClaude",
+  "baseUrl": "https://api.easyclaude.com",
+  "key": { "mode": "env", "ref": "EASYCLAUDE_API_KEY" },
+  "apis": {
+    "openai": { "enabled": true, "pathV1": true },
+    "anthropic": { "enabled": true, "pathV1": false }
+  },
+  "models": {
+    "opus": { "id": "claude-opus-4-8", "name": "Claude Opus 4.8", "via": "anthropic", "ctx": 200000, "out": 64000 },
+    "gptHigh": { "id": "gpt-5.5", "name": "GPT-5.5", "via": "openai", "ctx": 400000, "out": 128000 },
+    "gptCheap": { "id": "gpt-5.4", "name": "GPT-5.4", "via": "openai", "ctx": 1050000, "out": 128000 }
+  },
+  "quirks": {
+    "userAgentWafBlock": true,
+    "userAgentValue": "pi/0.80.3"
+  },
+  "verified": "2026-07-10 · opencode 1.17.18 / pi 0.80.6"
+}
