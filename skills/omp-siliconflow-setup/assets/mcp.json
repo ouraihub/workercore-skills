@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "imagegen": {
+      "command": "npx",
+      "args": ["-y", "tsx", "__IMAGEGEN_DIR__/src/server.ts"],
+      "env": {
+        "SILICONFLOW_API_KEY": "__PROFILE_KEY__"
+      }
+    }
+  }
+}

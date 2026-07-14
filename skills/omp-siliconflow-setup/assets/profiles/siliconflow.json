@@ -1,0 +1,52 @@
+{
+  "name": "siliconflow",
+  "baseUrl": "https://api.siliconflow.cn",
+  "key": { "mode": "env", "ref": "SILICONFLOW_API_KEY" },
+  "apis": {
+    "openai": { "enabled": true, "pathV1": true },
+    "anthropic": { "enabled": false }
+  },
+  "models": {
+    "v4pro": {
+      "id": "deepseek-ai/DeepSeek-V4-Pro",
+      "name": "DeepSeek V4 Pro",
+      "via": "openai",
+      "reasoning": true,
+      "input": ["text"],
+      "contextWindow": 1000000,
+      "maxTokens": 65536
+    },
+    "v4flash": {
+      "id": "deepseek-ai/DeepSeek-V4-Flash",
+      "name": "DeepSeek V4 Flash",
+      "via": "openai",
+      "reasoning": true,
+      "input": ["text"],
+      "contextWindow": 1000000,
+      "maxTokens": 65536
+    },
+    "kimi": {
+      "id": "moonshotai/Kimi-K2.7-Code",
+      "name": "Kimi K2.7 Code",
+      "via": "openai",
+      "reasoning": true,
+      "input": ["text", "image"],
+      "contextWindow": 256000,
+      "maxTokens": 65536
+    },
+    "glm": {
+      "id": "zai-org/GLM-5.2",
+      "name": "GLM 5.2",
+      "via": "openai",
+      "reasoning": true,
+      "input": ["text"],
+      "contextWindow": 1000000,
+      "maxTokens": 65536
+    }
+  },
+  "imagegen": {
+    "models": ["Tongyi-MAI/Z-Image-Turbo", "Tongyi-MAI/Z-Image"],
+    "default": "Tongyi-MAI/Z-Image-Turbo"
+  },
+  "quirks": {}
+}

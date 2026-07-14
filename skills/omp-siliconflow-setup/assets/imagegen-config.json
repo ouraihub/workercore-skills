@@ -1,0 +1,11 @@
+{
+  "providers": {
+    "__PROFILE_NAME__": {
+      "type": "openai",
+      "envVar": "__PROFILE_KEY_REF__",
+      "baseUrl": "__PROFILE_BASEURL__/v1"
+    }
+  },
+  "defaultProvider": "__PROFILE_NAME__",
+  "defaultModel": "__IMAGEGEN_DEFAULT_MODEL__"
+}

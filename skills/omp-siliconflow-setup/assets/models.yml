@@ -1,0 +1,31 @@
+providers:
+  __PROFILE_NAME__:
+    baseUrl: __PROFILE_BASEURL__/v1
+    api: openai-completions
+    apiKey: __PROFILE_KEY__
+    authHeader: true
+    models:
+      - id: __MODEL_V4PRO_ID__
+        name: __MODEL_V4PRO_NAME__
+        reasoning: true
+        input: [text]
+        contextWindow: __MODEL_V4PRO_CTX__
+        maxTokens: __MODEL_V4PRO_MAX__
+      - id: __MODEL_V4FLASH_ID__
+        name: __MODEL_V4FLASH_NAME__
+        reasoning: true
+        input: [text]
+        contextWindow: __MODEL_V4FLASH_CTX__
+        maxTokens: __MODEL_V4FLASH_MAX__
+      - id: __MODEL_KIMI_ID__
+        name: __MODEL_KIMI_NAME__
+        reasoning: true
+        input: [text, image]
+        contextWindow: __MODEL_KIMI_CTX__
+        maxTokens: __MODEL_KIMI_MAX__
+      - id: __MODEL_GLM_ID__
+        name: __MODEL_GLM_NAME__
+        reasoning: true
+        input: [text]
+        contextWindow: __MODEL_GLM_CTX__
+        maxTokens: __MODEL_GLM_MAX__
