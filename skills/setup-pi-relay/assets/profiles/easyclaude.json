@@ -8,10 +8,10 @@
     "anthropic": { "enabled": true, "pathV1": false }
   },
   "models": {
-    "opus": { "id": "claude-opus-4-8", "name": "Claude Opus 4.8", "via": "anthropic", "reasoning": true, "ctx": 200000, "out": 64000 },
-    "gptHigh": { "id": "gpt-5.5", "name": "GPT-5.5", "via": "openai", "ctx": 400000, "out": 128000 },
+    "opus": { "id": "claude-opus-4-8", "name": "Claude Opus 4.8", "via": "anthropic", "reasoning": true, "ctx": 1000000, "out": 128000 },
+    "gptHigh": { "id": "gpt-5.5", "name": "GPT-5.5", "via": "openai", "ctx": 1050000, "out": 128000 },
     "gptCheap": { "id": "gpt-5.4", "name": "GPT-5.4", "via": "openai", "ctx": 1050000, "out": 128000 },
-    "gpt56": { "id": "gpt-5.6-sol", "name": "GPT-5.6 Sol", "via": "openai", "ctx": 400000, "out": 128000 }
+    "gpt56": { "id": "gpt-5.6-sol", "name": "GPT-5.6 Sol", "via": "openai", "ctx": 1050000, "out": 128000 }
   },
   "quirks": {
     "userAgentWafBlock": true,
